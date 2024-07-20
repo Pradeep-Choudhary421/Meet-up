@@ -1,0 +1,165 @@
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
+import axios from "axios";
+import Chats from "../Chats/Chats";
+import NoChat from "../NoChat/NoChat";
+const Sidebar = () => {
+  const [userData, setUserData] = useState([]);
+  const [toggle, setToggle] = useState(false);
+  const [chatData, setChatData] = useState(null);
+  const [ham, setHam] = useState(false);
+
+  const userUrl = "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
+  const token = sessionStorage.getItem("token");
+  const userAvatar = sessionStorage.getItem("avatar");
+  useEffect(() => {
+    axios
+      .get(userUrl, {
+        headers: {
+          "auth-x-token": token,
+        },
+      })
+      .then((res) => {
+        setUserData(res.data.data);
+      });
+  }, []);
+  const handleToggle = (item) => {
+    setToggle(true);
+    setChatData(item);
+    setHam(false);
+  };
+  const handleOpen = () => {
+    setHam(true);
+  };
+  const handleClose = () => {
+    setHam(false);
+  };
+
+  return (
+    <>
+      <div className="bg-black w-[35%] lg:w-[25%] h-screen border-r-2 hidden md:block ">
+        <div className="flex flex-col items-center py-4 h-full w-full bg-black text-white">
+          <div className="flex flex-col justify-center items-center">
+            <div className="py-4 flex flex-col justify-center items-center">
+              <div className="rounded-[50%] overflow-hidden w-3/12">
+                <img src={userAvatar} alt="" />
+              </div>
+              <form action="" className="pt-8">
+                <input
+                  required
+                  type="text"
+                  className="py-1 px-2 text-black required rounded-[4px] mr-2"
+                  placeholder="Search User"
+                />
+                <button
+                  type="submit"
+                  className="border-2 rounded-[4px] hover:bg-white hover:text-black duration-700 py-1 px-2"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+            <div className=" py-6 overflow-hidden  w-full h-[55vh] flex justify-center text-2xl">
+              <ul className=" overflow-scroll no-scrollbar border-2">
+                {userData.map((item, index) => (
+                  <li
+                    onClick={() => handleToggle(item)}
+                    key={index}
+                    className="my-2 hover:border-2 mx-12 duration-100 cursor-pointer px-2 py-2 rounded-[4px]"
+                  >
+                    <div className="flex justify-start items-start gap-2 ">
+                      <div className="w-2/12 rounded-[50%] overflow-hidden object-cover">
+                        <img
+                          className="w-fit"
+                          src={item.avatar}
+                          alt={item.name}
+                        />
+                      </div>
+                      <h2>{item.name}</h2>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div className="py-2">
+                <Link to="/login">
+                  <button className="border-2 border-white p-2 rounded-[4px]">
+                    Logout
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* responsive */}
+      {!ham ? (
+        <div className="absolute text-2xl top-2 left-4 md:hidden text-black ">
+          <FaBars onClick={handleOpen} />
+        </div>
+      ) : (
+        <div className="absolute text-2xl top-2 left-4 md:hidden text-white">
+          <IoCloseSharp onClick={handleClose} />
+        </div>
+      )}
+      <div
+        className={`bg-black pt-12 h-screen border-r-2 ${
+          ham ? "block" : "hidden"
+        } md:hidden`}
+      >
+        <div className="w-screen">
+          <div className="flex justify-center items-center py-2">
+            <form action="">
+              <input
+                required
+                type="text"
+                className="py-1 px-2 text-black required rounded-[4px] mr-2"
+                placeholder="Search User"
+              />
+              <button
+                type="submit"
+                className="border-2 rounded-[4px] hover:bg-white hover:text-black duration-700 py-1 px-2"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+          <div className=" flex py-8 flex-col justify-center items-center">
+            <h1 className="text-4xl">People Available</h1>
+            <div className=" py-6 overflow-hidden h-[80vh] flex justify-center text-2xl">
+              <ul className=" overflow-scroll no-scrollbar">
+                {userData.map((item, index) => (
+                  <li
+                    onClick={() => handleToggle(item)}
+                    key={index}
+                    className="my-2 hover:border-2 mx-12 duration-100 cursor-pointer px-2 py-2 rounded-[4px]"
+                  >
+                    <div className="flex justify-start items-start gap-8 ">
+                      <div className="w-2/12 rounded-[50%] overflow-hidden object-cover">
+                        <img
+                          className="w-fit"
+                          src={item.avatar}
+                          alt={item.name}
+                        />
+                      </div>
+                      <h2 className="py-2">{item.name}</h2>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {toggle && <Chats items={chatData} />}
+    </>
+  );
+};
+
+export default Sidebar;
