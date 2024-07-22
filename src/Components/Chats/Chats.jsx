@@ -1,32 +1,52 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import io from "socket.io-client";
 
 const Chats = ({ items }) => {
   const [msg, setMsg] = useState("");
   const [getMsg, setGetMsg] = useState([]);
+  const [socket, setSocket] = useState(null);
   const sendUrl = `https://meet-up-backend-2kfj.onrender.com/api/v1/message/send/${items._id}`;
   const getMessageUrl = `https://meet-up-backend-2kfj.onrender.com/api/v1/message/get/${items._id}`;
   const token = sessionStorage.getItem("token");
-  const userAvatar = sessionStorage.getItem("avatar")
+  const userAvatar = sessionStorage.getItem("avatar");
+
+  useEffect(() => {
+    const newSocket = io("https://meet-up-backend-2kfj.onrender.com", {
+      query: { token },
+    });
+    setSocket(newSocket);
+
+    return () => newSocket.close(); 
+  }, [token]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("chat message", (newMessage) => {
+      setGetMsg((prevMessages) => [...prevMessages, newMessage]);
+    });
+
+    return () => socket.off("chat message"); // Clean up event listener on unmount
+  }, [socket]);
 
   const getAllMessages = async () => {
-    axios
-      .get(getMessageUrl, {
+    try {
+      const res = await axios.get(getMessageUrl, {
         headers: {
-          "auth-x-token": sessionStorage.getItem("token"),
+          "auth-x-token": token,
         },
-      })
-      .then((res) => {
-        setGetMsg(res.data.conversation.messages);
-      })
-      .catch((err) => {
-        // console.log()
       });
+      setGetMsg(res.data.conversation.messages);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
   };
+
   useEffect(() => {
     getAllMessages();
   }, [items._id]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
     try {
@@ -43,7 +63,12 @@ const Chats = ({ items }) => {
         }
       );
       setMsg("");
-      getAllMessages();
+      // Socket.io emit message to server
+      socket.emit("chat message", {
+        message: msg,
+        senderId: sessionStorage.getItem("userId"),
+        receiverId: items._id,
+      });
     } catch (error) {
       console.error("Error sending message:", error);
     }
