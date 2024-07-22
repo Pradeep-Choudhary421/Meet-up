@@ -14,7 +14,8 @@ const Sidebar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUserData, setFilteredUserData] = useState([]);
 
-  const userUrl = "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
+  const userUrl =
+    "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
   const token = sessionStorage.getItem("token");
   const userName = sessionStorage.getItem("userName");
   const userAvatar = sessionStorage.getItem("avatar");
@@ -42,7 +43,7 @@ const Sidebar = () => {
       );
       setFilteredUserData(filteredUsers);
     }
-  }, [ searchQuery]);
+  }, [searchQuery, userData]);
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -94,25 +95,35 @@ const Sidebar = () => {
                 >
                   Search
                 </button> */}
+              </div>
             </div>
-            </div>
-            <div className=" py-6 overflow-hidden  w-full h-[55vh] flex justify-center text-2xl">
-              <ul className=" overflow-scroll no-scrollbar border-2 w-72 h-fit">
+            <div className=" py-6 overflow-y-scroll no-scrollbar w-full h-[55vh] flex justify-center text-2xl">
+              <ul className=" border-2 w-72 h-fit">
                 {filteredUserData.map((item, index) => (
                   <li
                     onClick={() => handleToggle(item)}
                     key={index}
-                    className=" hover:border-2 duration-100 cursor-pointer py-2 rounded-[4px] border-b-2"
+                    className=" flex justify-center gap-16 hover:border-2 duration-100 cursor-pointer py-2 rounded-[4px] border-b-2"
                   >
-                    <div className="flex justify-center items-start gap-2 ">
+                    {/* <div className="grid grid-cols-2 items-center "> */}
                       <div className="w-2/12 rounded-[50%] overflow-hidden object-cover">
-                        <img
-                          className="w-fit"
-                          src={item.avatar}
-                          alt={userPro}
-                        />
+                        {item.avatar === "" ? (
+                          <img
+                            className="w-fit"
+                            src={userPro}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="w-fit"
+                            src={item.avatar}
+                            alt=""
+                          />
+                        )}
                       </div>
+                      <div className="">
                       <h2>{item.name}</h2>
+                      {/* </div> */}
                     </div>
                   </li>
                 ))}

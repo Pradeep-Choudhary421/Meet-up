@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
-
+import userPro from "../../assets/user.png";
 const Chats = ({ items }) => {
   const [msg, setMsg] = useState("");
   const [getMsg, setGetMsg] = useState([]);
@@ -77,7 +77,19 @@ const Chats = ({ items }) => {
       <div className="w-full bg-black overflow-hidden h-screen">
         <div className="flex justify-start pl-8 py-3 border-2 ">
           <div className="rounded-[50%] overflow-hidden w-10 ">
-            <img className="object-contain" src={items.avatar} alt="" />
+          {items.avatar === "" ? (
+                          <img
+                            className="w-fit"
+                            src={userPro}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="w-fit"
+                            src={items.avatar}
+                            alt=""
+                          />
+                        )}
           </div>
           <div className="flex justify-center items-center px-6">
             <h3 className="text-2xl">{items.name}</h3>
