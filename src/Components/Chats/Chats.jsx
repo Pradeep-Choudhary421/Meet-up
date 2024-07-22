@@ -16,8 +16,7 @@ const Chats = ({ items }) => {
       query: { token },
     });
     setSocket(newSocket);
-
-    return () => newSocket.close(); 
+    return () => newSocket.close();
   }, [token]);
 
   useEffect(() => {
@@ -26,8 +25,7 @@ const Chats = ({ items }) => {
     socket.on("chat message", (newMessage) => {
       setGetMsg((prevMessages) => [...prevMessages, newMessage]);
     });
-
-    return () => socket.off("chat message"); // Clean up event listener on unmount
+    return () => socket.off("chat message");
   }, [socket]);
 
   const getAllMessages = async () => {
@@ -39,7 +37,7 @@ const Chats = ({ items }) => {
       });
       setGetMsg(res.data.conversation.messages);
     } catch (error) {
-      console.error("Error fetching messages:", error);
+      setGetMsg([]);
     }
   };
 
@@ -88,7 +86,9 @@ const Chats = ({ items }) => {
         {/* Chatting */}
         <div className="pb-52 pt-8 px-4 overflow-scroll h-[75vh] mb-8 no-scrollbar">
           {getMsg.length === 0 ? (
-            <div>No chat</div>
+            <div className="flex justify-center">
+              <h2 className="text-2xl">Start Conversation!</h2>
+            </div>
           ) : (
             <div>
               {getMsg.map((item, index) => (

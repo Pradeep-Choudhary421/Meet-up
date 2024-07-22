@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import Chats from "../Chats/Chats";
-import NoChat from "../NoChat/NoChat";
+import userPro from "../../assets/user.png";
 const Sidebar = () => {
   const [userData, setUserData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [chatData, setChatData] = useState(null);
   const [ham, setHam] = useState(false);
 
-  const userUrl = "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
+  const userUrl =
+    "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
   const token = sessionStorage.getItem("token");
+  const userName = sessionStorage.getItem("userName");
   const userAvatar = sessionStorage.getItem("avatar");
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(userUrl, {
@@ -25,6 +28,12 @@ const Sidebar = () => {
         setUserData(res.data.data);
       });
   }, []);
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userName");
+    sessionStorage.removeItem("avatar");
+    navigate("/login");
+  };
   const handleToggle = (item) => {
     setToggle(true);
     setChatData(item);
@@ -46,11 +55,12 @@ const Sidebar = () => {
               <div className="rounded-[50%] overflow-hidden w-3/12">
                 <img src={userAvatar} alt="" />
               </div>
+              <div className="mt-2 text-2xl">{userName}</div>
               <form action="" className="pt-8">
                 <input
                   required
                   type="text"
-                  className="py-1 px-2 text-black required rounded-[4px] mr-2"
+                  className="py-1 px-2 text-black required rounded-[4px] mr-2 bg-transparent border-2"
                   placeholder="Search User"
                 />
                 <button
@@ -62,19 +72,19 @@ const Sidebar = () => {
               </form>
             </div>
             <div className=" py-6 overflow-hidden  w-full h-[55vh] flex justify-center text-2xl">
-              <ul className=" overflow-scroll no-scrollbar border-2">
+              <ul className=" overflow-scroll no-scrollbar border-2 w-72 h-fit">
                 {userData.map((item, index) => (
                   <li
                     onClick={() => handleToggle(item)}
                     key={index}
-                    className="my-2 hover:border-2 mx-12 duration-100 cursor-pointer px-2 py-2 rounded-[4px]"
+                    className=" hover:border-2 duration-100 cursor-pointer py-2 rounded-[4px] border-b-2"
                   >
-                    <div className="flex justify-start items-start gap-2 ">
+                    <div className="flex justify-center items-start gap-2 ">
                       <div className="w-2/12 rounded-[50%] overflow-hidden object-cover">
                         <img
                           className="w-fit"
                           src={item.avatar}
-                          alt={item.name}
+                          alt={userPro}
                         />
                       </div>
                       <h2>{item.name}</h2>
@@ -86,12 +96,10 @@ const Sidebar = () => {
           </div>
           <div>
             <div>
-              <div className="py-2">
-                <Link to="/login">
-                  <button className="border-2 border-white p-2 rounded-[4px]">
-                    Logout
-                  </button>
-                </Link>
+              <div className="py-2" onClick={handleLogout}>
+                <button className="border-2 border-white p-2 rounded-[4px]">
+                  Logout
+                </button>
               </div>
             </div>
           </div>
