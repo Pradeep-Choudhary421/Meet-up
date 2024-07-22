@@ -119,6 +119,7 @@ const Chats = ({ items }) => {
               <input
                 type="text"
                 required
+                value={msg}
                 onChange={(e) => setMsg(e.target.value)}
                 className="bg-transparent border-2  rounded-lg w-[30vw]"
               />

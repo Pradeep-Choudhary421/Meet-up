@@ -5,18 +5,21 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import Chats from "../Chats/Chats";
 import userPro from "../../assets/user.png";
+
 const Sidebar = () => {
   const [userData, setUserData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [chatData, setChatData] = useState(null);
   const [ham, setHam] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredUserData, setFilteredUserData] = useState([]);
 
-  const userUrl =
-    "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
+  const userUrl = "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
   const token = sessionStorage.getItem("token");
   const userName = sessionStorage.getItem("userName");
   const userAvatar = sessionStorage.getItem("avatar");
   const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(userUrl, {
@@ -28,27 +31,47 @@ const Sidebar = () => {
         setUserData(res.data.data);
       });
   }, []);
+
+  // Update filtered user data when userData or searchQuery changes
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredUserData(userData);
+    } else {
+      const filteredUsers = userData.filter((user) =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredUserData(filteredUsers);
+    }
+  }, [ searchQuery]);
+
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userName");
     sessionStorage.removeItem("avatar");
     navigate("/login");
   };
+
   const handleToggle = (item) => {
     setToggle(true);
     setChatData(item);
     setHam(false);
   };
+
   const handleOpen = () => {
     setHam(true);
   };
+
   const handleClose = () => {
     setHam(false);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <>
-      <div className="bg-black w-[35%] lg:w-[25%] h-screen border-r-2 hidden md:block ">
+      <div className="bg-black w-[35%] lg:w-[25%] h-screen border-r-2 hidden md:block">
         <div className="flex flex-col items-center py-4 h-full w-full bg-black text-white">
           <div className="flex flex-col justify-center items-center">
             <div className="py-4 flex flex-col justify-center items-center">
@@ -56,24 +79,26 @@ const Sidebar = () => {
                 <img src={userAvatar} alt="" />
               </div>
               <div className="mt-2 text-2xl">{userName}</div>
-              <form action="" className="pt-8">
+              <div className="pt-4 flex justify-center ">
                 <input
                   required
                   type="text"
-                  className="py-1 px-2 text-black required rounded-[4px] mr-2 bg-transparent border-2"
+                  className="py-1 px-2 text-white required w-[100%] rounded-[4px] bg-transparent border-2"
                   placeholder="Search User"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
                 />
-                <button
+                {/* <button
                   type="submit"
                   className="border-2 rounded-[4px] hover:bg-white hover:text-black duration-700 py-1 px-2"
                 >
                   Search
-                </button>
-              </form>
+                </button> */}
+            </div>
             </div>
             <div className=" py-6 overflow-hidden  w-full h-[55vh] flex justify-center text-2xl">
               <ul className=" overflow-scroll no-scrollbar border-2 w-72 h-fit">
-                {userData.map((item, index) => (
+                {filteredUserData.map((item, index) => (
                   <li
                     onClick={() => handleToggle(item)}
                     key={index}
@@ -129,20 +154,16 @@ const Sidebar = () => {
                 type="text"
                 className="py-1 px-2 text-black required rounded-[4px] mr-2"
                 placeholder="Search User"
+                value={searchQuery}
+                onChange={handleSearchChange}
               />
-              <button
-                type="submit"
-                className="border-2 rounded-[4px] hover:bg-white hover:text-black duration-700 py-1 px-2"
-              >
-                Search
-              </button>
             </form>
           </div>
           <div className=" flex py-8 flex-col justify-center items-center">
             <h1 className="text-4xl">People Available</h1>
             <div className=" py-6 overflow-hidden h-[80vh] flex justify-center text-2xl">
               <ul className=" overflow-scroll no-scrollbar">
-                {userData.map((item, index) => (
+                {filteredUserData.map((item, index) => (
                   <li
                     onClick={() => handleToggle(item)}
                     key={index}
