@@ -46,12 +46,7 @@ const Sidebar = () => {
     }
   }, [searchQuery, userData]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userName");
-    sessionStorage.removeItem("avatar");
-    navigate("/login");
-  };
+  
 
   const handleToggle = (item) => {
     setToggle(true);
@@ -78,9 +73,13 @@ const Sidebar = () => {
           <div className="flex flex-col justify-center items-center">
             <div className="py-4 flex flex-col justify-center items-center">
               <div className="rounded-[50%] overflow-hidden w-3/12">
+              <Link to="/userProfile">
                 <img src={userAvatar} alt="" />
+                </Link>
               </div>
-              <div className="mt-2 text-2xl">{userName}</div>
+              <div className="mt-2 text-2xl"> <Link to="/userProfile">
+              {userName}
+              </Link></div>
               <div className="pt-4 flex justify-center ">
                 <input
                   required
@@ -133,11 +132,11 @@ const Sidebar = () => {
           </div>
           <div>
             <div>
-              <div className="py-2" onClick={handleLogout}>
+              {/* <div className="py-2" onClick={handleLogout}>
                 <button className="border-2 border-white p-2 rounded-[4px]">
                   Logout
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

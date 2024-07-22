@@ -31,6 +31,7 @@ const Login = () => {
           sessionStorage.setItem("token", res.data.token);
           sessionStorage.setItem("avatar", res.data.data.avatar);
           sessionStorage.setItem("userName", res.data.data.name);
+          sessionStorage.setItem("useremail", res.data.data.email);
           sessionStorage.setItem("userId", res.data.data._id);
           toast.success("Login Success");
           navigate("/");
