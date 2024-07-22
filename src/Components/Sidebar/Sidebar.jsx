@@ -5,6 +5,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import Chats from "../Chats/Chats";
 import userPro from "../../assets/user.png";
+import HelloUsers from "../HelloUser/HelloUsers";
 
 const Sidebar = () => {
   const [userData, setUserData] = useState([]);
@@ -197,7 +198,8 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      {toggle && <Chats items={chatData} />}
+      {toggle && <Chats items={chatData} /> }
+      {!toggle && <HelloUsers/>}
     </>
   );
 };
