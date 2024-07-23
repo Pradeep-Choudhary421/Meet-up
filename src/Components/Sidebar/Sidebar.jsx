@@ -172,7 +172,7 @@ const Sidebar = () => {
           ham ? "block" : "hidden"
         } md:hidden`}
       >
-        <div className="w-screen overflow-hidden z-50">
+        <div className="w-screen overflow-hidden ">
             <div className="grid grid-cols-1 justify-items-center justify-center items-center  overflow-hidden ">
               <div className=" overflow-hidden w-5/12 py-4">
               <Link className=" cursor-pointer" to="/userProfile">
@@ -192,10 +192,10 @@ const Sidebar = () => {
               />
             </form>
           </div>
-          <div className=" flex py-8 flex-col justify-center items-center">
+          <div className=" flex py-2 flex-col justify-center items-center">
             <h1 className="text-4xl">People Available</h1>
-            <div className=" py-6 overflow-hidden h-[80vh] flex justify-center text-2xl">
-            <ul className=" border-2 w-72 h-fit">
+            <div className=" py-6 mt-4 border-t-2 overflow-y-scroll no-scrollbar w-full h-[55vh] flex justify-center text-2xl">
+              <ul className=" border-2 w-72 h-fit">
                 {filteredUserData.map((item, index) => (
                   <li
                     onClick={() => handleToggle(item)}
