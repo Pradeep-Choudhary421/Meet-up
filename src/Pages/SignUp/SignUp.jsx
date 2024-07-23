@@ -40,11 +40,7 @@ const SignUp = () => {
       setPassword("");
       setAvatar("");
     } catch (err) {
-      if (email !== null || name !== null || password !== null) {
-        console.log("err");
-      } else {
         toast.error("Please fill all the fields");
-      }
     }
   };
 
