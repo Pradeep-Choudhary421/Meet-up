@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import userPro from "../../assets/user.png";
-const Chats = ({ items }) => {
+import { IoArrowBackOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+const Chats = ({ items, onClose }) => {
   const [msg, setMsg] = useState("");
   const [getMsg, setGetMsg] = useState([]);
   const [socket, setSocket] = useState(null);
@@ -10,7 +12,6 @@ const Chats = ({ items }) => {
   const getMessageUrl = `https://meet-up-backend-2kfj.onrender.com/api/v1/message/get/${items._id}`;
   const token = sessionStorage.getItem("token");
   const userAvatar = sessionStorage.getItem("avatar");
-
   useEffect(() => {
     const newSocket = io("https://meet-up-backend-2kfj.onrender.com", {
       query: { token },
@@ -40,7 +41,6 @@ const Chats = ({ items }) => {
       setGetMsg([]);
     }
   };
-
   useEffect(() => {
     getAllMessages();
   }, [items._id]);
@@ -71,11 +71,13 @@ const Chats = ({ items }) => {
       console.error("Error sending message:", error);
     }
   };
-
   return (
     <>
       <div className="w-full bg-black overflow-hidden h-screen">
         <div className="flex justify-start pl-8 py-3 border-2 ">
+        {/* <Link to=""> */}
+        <div onClick={onClose} className='  absolute block md:hidden text-2xl top-4 left-2  hover:cursor-pointer'><IoArrowBackOutline /></div>
+        {/* </Link> */}
           <div className="rounded-[50%] overflow-hidden w-10 ">
             {items.avatar === "" ? (
               <img className="w-fit" src={userPro} alt="" />
@@ -105,7 +107,6 @@ const Chats = ({ items }) => {
                             {item.message}
                           </div>
                         </div>
-
                         {item.receiverId === items._id ? (
                           <div className=" overflow-hidden w-[50px] rounded-[50%]">
                             <img src={userAvatar} alt="" />

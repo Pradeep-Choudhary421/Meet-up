@@ -11,7 +11,7 @@ const Sidebar = () => {
   const [userData, setUserData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [chatData, setChatData] = useState(null);
-  const [ham, setHam] = useState(false);
+  const [ham, setHam] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUserData, setFilteredUserData] = useState([]);
 
@@ -27,7 +27,7 @@ const Sidebar = () => {
   const token = sessionStorage.getItem("token");
   const userName = sessionStorage.getItem("userName");
   const userAvatar = sessionStorage.getItem("avatar");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -60,13 +60,17 @@ const Sidebar = () => {
     setChatData(item);
     setHam(false);
   };
+  const handleCloseToggle = () =>{
+    setToggle(false);
+    setHam(true)
+  }
 
   const handleOpen = () => {
-    setHam(true);
+    setHam(!ham);
   };
 
   const handleClose = () => {
-    setHam(false);
+    setHam(!ham);
   };
 
   const handleSearchChange = (e) => {
@@ -75,7 +79,10 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="bg-black w-[35%] lg:w-[25%] h-screen border-r-2 hidden md:block">
+          {/* <div className="absolute top-4 left-4 text-2xl block md:hidden">
+          <FaBars />
+          </div> */}
+      <div className="bg-black w-[35%] lg:w-[25%] h-screen border-r-2 hidden md:block"> 
         <div className="flex flex-col items-center py-4 h-full w-full bg-black text-white">
           <div className="flex flex-col justify-center items-center">
             <div className="py-4 flex flex-col justify-center items-center">
@@ -150,21 +157,29 @@ const Sidebar = () => {
       </div>
 
       {/* responsive */}
-      {!ham ? (
-        <div className="absolute text-2xl top-2 left-4 md:hidden text-black ">
-          <FaBars onClick={handleOpen} />
-        </div>
-      ) : (
+      
         <div className="absolute text-2xl top-2 left-4 md:hidden text-white">
-          <IoCloseSharp onClick={handleClose} />
+          {
+            ham ? 
+            <IoCloseSharp onClick={handleClose} /> :
+          <FaBars onClick={handleOpen} />
+          }
         </div>
-      )}
+
+
       <div
         className={`bg-black pt-12 h-screen border-r-2 ${
           ham ? "block" : "hidden"
         } md:hidden`}
       >
-        <div className="w-screen">
+        <div className="w-screen overflow-hidden z-50">
+            <div className="grid grid-cols-1 justify-items-center justify-center items-center  overflow-hidden ">
+              <div className=" overflow-hidden w-5/12 py-4">
+              <Link className=" cursor-pointer" to="/userProfile">
+              <img src={userAvatar} alt="" />
+              </Link>
+              </div>
+            </div>
           <div className="flex justify-center items-center py-2">
             <form action="">
               <input
@@ -180,22 +195,32 @@ const Sidebar = () => {
           <div className=" flex py-8 flex-col justify-center items-center">
             <h1 className="text-4xl">People Available</h1>
             <div className=" py-6 overflow-hidden h-[80vh] flex justify-center text-2xl">
-              <ul className=" overflow-scroll no-scrollbar">
+            <ul className=" border-2 w-72 h-fit">
                 {filteredUserData.map((item, index) => (
                   <li
                     onClick={() => handleToggle(item)}
                     key={index}
-                    className="my-2 hover:border-2 mx-12 duration-100 cursor-pointer px-2 py-2 rounded-[4px]"
+                    className=" flex justify-center gap-16 hover:border-2 duration-100 cursor-pointer py-2 rounded-[4px] border-b-2"
                   >
-                    <div className="flex justify-start items-start gap-8 ">
+                    {/* <div className="grid grid-cols-2 items-center "> */}
                       <div className="w-2/12 rounded-[50%] overflow-hidden object-cover">
-                        <img
-                          className="w-fit"
-                          src={item.avatar}
-                          alt={item.name}
-                        />
+                        {item.avatar === "" ? (
+                          <img
+                            className="w-fit"
+                            src={userPro}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="w-fit"
+                            src={item.avatar}
+                            alt=""
+                          />
+                        )}
                       </div>
-                      <h2 className="py-2">{item.name}</h2>
+                      <div className="">
+                      <h2>{item.name}</h2>
+                      {/* </div> */}
                     </div>
                   </li>
                 ))}
@@ -204,7 +229,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      {toggle && <Chats items={chatData} /> }
+      {toggle && <Chats items={chatData} onClose={handleCloseToggle} /> }
       {!toggle && <HelloUsers/>}
     </>
   );
