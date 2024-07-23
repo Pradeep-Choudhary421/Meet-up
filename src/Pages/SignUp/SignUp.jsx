@@ -33,7 +33,7 @@ const SignUp = () => {
         .then((res) => {
           // console.log(res);
           toast.success("Register Success");
-          navigate("/login");
+          navigate("/");
         });
       setName("");
       setEmail("");
