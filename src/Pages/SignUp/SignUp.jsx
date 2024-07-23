@@ -122,7 +122,7 @@ const SignUp = () => {
             <img src="" alt="" />
           </Logo>
           <Footer>
-            Already have an account? <Link to="/login">Login In Here</Link>
+            Already have an account? <Link to="/">Login In Here</Link>
           </Footer>
         </LoginPage>
       </div>
