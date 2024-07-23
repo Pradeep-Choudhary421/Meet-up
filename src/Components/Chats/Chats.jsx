@@ -77,19 +77,11 @@ const Chats = ({ items }) => {
       <div className="w-full bg-black overflow-hidden h-screen">
         <div className="flex justify-start pl-8 py-3 border-2 ">
           <div className="rounded-[50%] overflow-hidden w-10 ">
-          {items.avatar === "" ? (
-                          <img
-                            className="w-fit"
-                            src={userPro}
-                            alt=""
-                          />
-                        ) : (
-                          <img
-                            className="w-fit"
-                            src={items.avatar}
-                            alt=""
-                          />
-                        )}
+            {items.avatar === "" ? (
+              <img className="w-fit" src={userPro} alt="" />
+            ) : (
+              <img className="w-fit" src={items.avatar} alt="" />
+            )}
           </div>
           <div className="flex justify-center items-center px-6">
             <h3 className="text-2xl">{items.name}</h3>
@@ -105,19 +97,43 @@ const Chats = ({ items }) => {
             <div>
               {getMsg.map((item, index) => (
                 <div key={index}>
-                  <div className="flex justify-start my-4 gap-4">
-                    {item.receiverId === items._id ? (
-                      <div className=" overflow-hidden w-[50px] rounded-[50%]">
-                        <img src={userAvatar} alt="" />
+                  <div>
+                    {item.senderId === sessionStorage.getItem("userId") ? (
+                      <div className="flex justify-end my-4 gap-4">
+                        <div className="max-w-80 border-2 text-inherit rounded-lg p-2 flex justify-end overflow-hidden">
+                          <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
+                            {item.message}
+                          </div>
+                        </div>
+
+                        {item.receiverId === items._id ? (
+                          <div className=" overflow-hidden w-[50px] rounded-[50%]">
+                            <img src={userAvatar} alt="" />
+                          </div>
+                        ) : (
+                          <div className=" overflow-hidden w-[50px] rounded-[50%]">
+                            <img src={items.avatar} alt="" />
+                          </div>
+                        )}
                       </div>
                     ) : (
-                      <div className=" overflow-hidden w-[50px] rounded-[50%]">
-                        <img src={items.avatar} alt="" />
+                      <div className="flex justify-start my-4 gap-4">
+                        {item.receiverId === items._id ? (
+                          <div className=" overflow-hidden w-[50px] rounded-[50%]">
+                            <img src={userAvatar} alt="" />
+                          </div>
+                        ) : (
+                          <div className=" overflow-hidden w-[50px] rounded-[50%]">
+                            <img src={items.avatar} alt="" />
+                          </div>
+                        )}
+                        <div className="max-w-80 border-2 text-inherit rounded-lg p-2 flex justify-end overflow-hidden">
+                          <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
+                            {item.message}
+                          </div>
+                        </div>
                       </div>
                     )}
-                    <div className="w-6/12 border-2 rounded-lg p-2 flex justify-end">
-                      {item.message}
-                    </div>
                   </div>
                 </div>
               ))}{" "}
