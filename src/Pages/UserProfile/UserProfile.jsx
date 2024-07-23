@@ -17,7 +17,7 @@ const UserProfile = () => {
   return (
     <>
     <section className='w-screen h-screen bg-black text-white overflow-hidden '>
-        <Link to="/">
+        <Link to="/home">
         <div className=' absolute text-6xl p-4 w-fit hover:cursor-pointer'><IoArrowBackOutline /></div>
         </Link>
         <div className='grid grid-cols-1 justify-items-center items-center w-full h-full'>
