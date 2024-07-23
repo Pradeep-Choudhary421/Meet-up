@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import userPro from "../../assets/user.png";
-const Chats = ({ items, onClose }) => {
+const Chats = ({ items }) => {
   const [msg, setMsg] = useState("");
   const [getMsg, setGetMsg] = useState([]);
   const [socket, setSocket] = useState(null);
