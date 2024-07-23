@@ -6,6 +6,7 @@ const Chats = ({ items }) => {
   const [msg, setMsg] = useState("");
   const [getMsg, setGetMsg] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [msgTime, setMsgTime] = useState(null)
   const sendUrl = `https://meet-up-backend-2kfj.onrender.com/api/v1/message/send/${items._id}`;
   const getMessageUrl = `https://meet-up-backend-2kfj.onrender.com/api/v1/message/get/${items._id}`;
   const token = sessionStorage.getItem("token");
@@ -57,8 +58,7 @@ const Chats = ({ items }) => {
             "auth-x-token": token,
           },
         }
-      );
-      setMsg("");
+      )
       // Socket.io emit message to server
       socket.emit("chat message", {
         message: msg,
@@ -101,6 +101,7 @@ const Chats = ({ items }) => {
                         <div className="max-w-48 sm:max-w-80 border-2 text-inherit rounded-lg p-2 flex justify-end overflow-hidden">
                           <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
                             {item.message}
+                            {/* {item.createdAt.split("T")[1].split(".")[0]} */}
                           </div>
                         </div>
                         {item.receiverId === items._id ? (

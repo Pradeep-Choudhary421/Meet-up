@@ -44,13 +44,10 @@ const SignUp = () => {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = async(event) => {
     const file = event.target.files[0];
     setAvatar(file);
-  };
-
-  const handleResume = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const cloudData = new FormData();
     cloudData.append("file", avatar);
     cloudData.append("upload_preset", "image_preset");
@@ -60,9 +57,26 @@ const SignUp = () => {
       body: cloudData,
     });
     const final = await resImg.json();
+    console.log("sfbdsk",final.secure_url)
     setAvatar(final.secure_url);
     // setFormData({ ...formData, resume: final.secure_url });
-    toast.success("Avatar Uploaded succes sfully");
+    toast.success("Avatar Uploaded successfully");
+  };
+
+  const handleResume = async (e) => {
+    e.preventDefault();
+    // const cloudData = new FormData();
+    // cloudData.append("file", avatar);
+    // cloudData.append("upload_preset", "image_preset");
+    // let cloudapi = "https://api.cloudinary.com/v1_1/da0g8xa3n/image/upload";
+    // let resImg = await fetch(cloudapi, {
+    //   method: "POST",
+    //   body: cloudData,
+    // });
+    // const final = await resImg.json();
+    // setAvatar(final.secure_url);
+    // // setFormData({ ...formData, resume: final.secure_url });
+    // toast.success("Avatar Uploaded successfully");
   };
 
   return (
