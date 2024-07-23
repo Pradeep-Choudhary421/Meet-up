@@ -12,7 +12,7 @@ const UserProfile = () => {
     sessionStorage.removeItem("userName");
     sessionStorage.removeItem("avatar");
     sessionStorage.removeItem("useremail");
-    navigate("/login");
+    navigate("/");
   };
   return (
     <>

@@ -14,9 +14,9 @@ const App = () => {
     <BrowserRouter>
     <ToastContainer autoClose={1500} />
     <Routes>
-      <Route path="/" element={<Home/>}/>
+      <Route path="/home" element={<Home/>}/>
       <Route path="/loginDemo" element={<LoginDemo/>}/>
-      <Route path="/login" element={<Login/>}/>
+      <Route path="/" element={<Login/>}/>
       <Route path="/signUp" element={<SignUp/>}/>
       <Route path="/userProfile" element={<UserProfile/>}/>
       </Routes>  

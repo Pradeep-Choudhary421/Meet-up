@@ -34,7 +34,7 @@ const Login = () => {
           sessionStorage.setItem("useremail", res.data.data.email);
           sessionStorage.setItem("userId", res.data.data._id);
           toast.success("Login Success");
-          navigate("/");
+          navigate("/home");
         });
     } catch (err) {
       toast.error("Login Failed");

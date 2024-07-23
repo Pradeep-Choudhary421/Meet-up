@@ -15,13 +15,13 @@ const Sidebar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUserData, setFilteredUserData] = useState([]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userName");
-    sessionStorage.removeItem("avatar");
-    sessionStorage.removeItem("useremail");
-    navigate("/login");
-  };
+  // const handleLogout = () => {
+  //   sessionStorage.removeItem("token");
+  //   sessionStorage.removeItem("userName");
+  //   sessionStorage.removeItem("avatar");
+  //   sessionStorage.removeItem("useremail");
+  //   navigate("/login");
+  // };
   const userUrl =
     "https://meet-up-backend-2kfj.onrender.com/api/v1/user/getOther";
   const token = sessionStorage.getItem("token");
@@ -139,11 +139,11 @@ const Sidebar = () => {
           </div>
           <div>
             <div>
-              <div className="py-2" onClick={handleLogout}>
+              {/* <div className="py-2" onClick={handleLogout}>
                 <button className="border-2 border-white p-2 rounded-[4px]">
                   Logout
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
