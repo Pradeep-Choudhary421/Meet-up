@@ -86,10 +86,22 @@ const Sidebar = () => {
         <div className="flex flex-col items-center py-4 h-full w-full bg-black text-white">
           <div className="flex flex-col justify-center items-center">
             <div className="py-4 flex flex-col justify-center items-center">
-              <div className="rounded-[50%] overflow-hidden w-3/12">
-              <Link to="/userProfile">
-                <img src={userAvatar} alt="" />
-                </Link>
+            <div className="w-4/12 my-4 rounded-[50%] overflow-hidden object-cover">
+              <Link className=" cursor-pointer" to="/userProfile">
+              {userAvatar === "" ? (
+                          <img
+                            className="w-fit"
+                            src={userPro}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="w-fit"
+                            src={userAvatar}
+                            alt=""
+                          />
+                        )}
+              </Link>
               </div>
               <div className="mt-2 text-2xl"> <Link to="/userProfile">
               {userName}
@@ -174,9 +186,21 @@ const Sidebar = () => {
       >
         <div className="w-screen overflow-hidden ">
             <div className="grid grid-cols-1 justify-items-center justify-center items-center  overflow-hidden ">
-              <div className=" overflow-hidden w-5/12 py-4">
+              <div className="w-4/12 my-4 rounded-[50%] overflow-hidden object-cover">
               <Link className=" cursor-pointer" to="/userProfile">
-              <img src={userAvatar} alt="" />
+              {userAvatar === "" ? (
+                          <img
+                            className="w-fit"
+                            src={userPro}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="w-fit"
+                            src={userAvatar}
+                            alt=""
+                          />
+                        )}
               </Link>
               </div>
             </div>
