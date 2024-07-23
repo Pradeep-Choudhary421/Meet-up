@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import userPro from "../../assets/user.png";
-import { IoArrowBackOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
 const Chats = ({ items, onClose }) => {
   const [msg, setMsg] = useState("");
   const [getMsg, setGetMsg] = useState([]);
@@ -75,9 +73,7 @@ const Chats = ({ items, onClose }) => {
     <>
       <div className="w-full bg-black overflow-hidden h-screen">
         <div className="flex justify-start pl-8 py-3 border-2 ">
-        {/* <Link to=""> */}
-        <div onClick={onClose} className='  absolute block md:hidden text-2xl top-4 left-2  hover:cursor-pointer'><IoArrowBackOutline /></div>
-        {/* </Link> */}
+        
           <div className="rounded-[50%] overflow-hidden w-10 ">
             {items.avatar === "" ? (
               <img className="w-fit" src={userPro} alt="" />
@@ -102,7 +98,7 @@ const Chats = ({ items, onClose }) => {
                   <div>
                     {item.senderId === sessionStorage.getItem("userId") ? (
                       <div className="flex justify-end my-4 gap-4">
-                        <div className="max-w-80 border-2 text-inherit rounded-lg p-2 flex justify-end overflow-hidden">
+                        <div className="max-w-48 sm:max-w-80 border-2 text-inherit rounded-lg p-2 flex justify-end overflow-hidden">
                           <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
                             {item.message}
                           </div>
@@ -128,7 +124,7 @@ const Chats = ({ items, onClose }) => {
                             <img src={items.avatar} alt="" />
                           </div>
                         )}
-                        <div className="max-w-80 border-2 text-inherit rounded-lg p-2 flex justify-end overflow-hidden">
+                        <div className="max-w-48 sm:max-w-80 border-2 text-inherit rounded-lg p-2 flex justify-end overflow-hidden">
                           <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
                             {item.message}
                           </div>
@@ -150,7 +146,7 @@ const Chats = ({ items, onClose }) => {
                 required
                 value={msg}
                 onChange={(e) => setMsg(e.target.value)}
-                className="bg-transparent border-2  rounded-lg w-[30vw]"
+                className="bg-transparent border-2 rounded-lg w-[55vw] sm:w-[40vw] lg:w-[30vw]"
               />
               <button
                 className="border-2 py-2 px-4 mx-6 text-white  rounded-lg"

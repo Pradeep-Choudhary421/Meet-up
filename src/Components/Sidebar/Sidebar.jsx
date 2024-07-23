@@ -158,7 +158,7 @@ const Sidebar = () => {
 
       {/* responsive */}
       
-        <div className="absolute text-2xl top-2 left-4 md:hidden text-white">
+        <div className="absolute text-2xl top-4 left-2 md:hidden text-white">
           {
             ham ? 
             <IoCloseSharp onClick={handleClose} /> :
