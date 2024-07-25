@@ -65,6 +65,7 @@ const Chats = ({ items }) => {
         senderId: sessionStorage.getItem("userId"),
         receiverId: items._id,
       });
+      setMsg("");
     } catch (error) {
       console.error("Error sending message:", error);
     }
