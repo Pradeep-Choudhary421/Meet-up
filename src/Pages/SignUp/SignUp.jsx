@@ -1,14 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LoginPage, {
-  Username,
-  Password,
-  Submit,
-  Title,
-  Logo,
-  Footer,
-} from "@react-login-page/page6";
 import { toast } from "react-toastify";
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -40,11 +32,7 @@ const SignUp = () => {
       setPassword("");
       setAvatar("");
     } catch (err) {
-      if (email !== null || name !== null || password !== null) {
-        console.log("err");
-      } else {
-        toast.error("Please fill all the fields");
-      }
+      toast.error("Email Already Exist");
     }
   };
 
@@ -137,7 +125,9 @@ const SignUp = () => {
             <div className=" flex justify-center pt-4">
               <h3>
                 Already have an Account ?
+                <Link to="/">
                 <span className=" hover:underline cursor-pointer"> Login Here</span>
+                </Link>
               </h3>
             </div>
           </div>

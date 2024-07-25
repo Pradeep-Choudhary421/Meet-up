@@ -28,7 +28,7 @@ const Login = () => {
           navigate("/home");
         });
     } catch (err) {
-      toast.error("Login Failed");
+      toast.error("InValid Credentials");
     }
   };
 
@@ -80,7 +80,9 @@ const Login = () => {
             <div className=" flex justify-center pt-4">
               <h3>
                 Don't Have An Account ?
+                <Link to="/signUp">
                 <span className=" hover:underline cursor-pointer"> Register Here</span>
+                </Link>
               </h3>
             </div>
           </div>
