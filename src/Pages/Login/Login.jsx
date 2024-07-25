@@ -2,14 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import LoginPage, {
-  Username,
-  Password,
-  Submit,
-  Title,
-  Footer,
-  Logo,
-} from "@react-login-page/page6";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,31 +36,56 @@ const Login = () => {
   return (
     <>
       {/* ----------------------------------------------- */}
-      <div className="h-screen overflow-hidden">
-        <LoginPage>
-          <Title>Welcome User</Title>
-          <Username
-            label="Email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-          <Password
-            label="Password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            name="userPassword"
-          />
-          <Submit onClick={handleLogin}>Submit</Submit>
-          <Logo>
-            <img src="" alt="" />
-          </Logo>
-          <Footer>
-            Not an Account? <Link to="/signUp">Sign up now</Link>
-          </Footer>
-        </LoginPage>
+      <div className="w-screen overflow-hidden h-screen bg-black grid grid-cols-1 justify-items-center items-center">
+        <div className=" bg-white py-4 rounded-[6px]">
+          <div className=" grid grid-cols-1 p-4 justify-items-center items-center justify-center my-8 ">
+            <div className=" flex flex-col border-2 w-11/12 md:w-full justify-center">
+              <h2 className="flex justify-center py-4 text-2xl">Login Here</h2>
+              <form
+                action=""
+                onSubmit={handleLogin}
+                className="grid py-4 px-8 grid-cols-1 justify-items-center gap-4"
+              >
+                <div>
+                  <input
+                    type="email"
+                    required
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    onChange={(e)=>setEmail(e.target.value)}
+                    className=" border-gray-500 border-[1px] py-2 px-2 rounded-[3px]"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    required
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    onChange={(e)=>setPassword(e.target.value)}
+                    className=" border-gray-500 border-[1px] py-2 px-2 rounded-[3px]"
+                  />
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="border-2 border-black px-2 py-1 rounded-[6px] hover:bg-black hover:text-white duration-700"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div className=" flex justify-center pt-4">
+              <h3>
+                Don't Have An Account ?
+                <span className=" hover:underline cursor-pointer"> Register Here</span>
+              </h3>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

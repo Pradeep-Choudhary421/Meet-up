@@ -86,7 +86,7 @@ const Chats = ({ items }) => {
           </div>
         </div>
         {/* Chatting */}
-        <div className="pb-52 pt-8 px-4 overflow-scroll h-[75vh] mb-8 no-scrollbar">
+        <div className="pb-52 pt-8 px-4 overflow-scroll h-[73vh] mb-8 no-scrollbar">
           {getMsg.length === 0 ? (
             <div className="flex justify-center">
               <h2 className="text-2xl">Start Conversation!</h2>
@@ -139,7 +139,7 @@ const Chats = ({ items }) => {
           )}
         </div>
         {/* Type Message */}
-        <div className=" bottom-0 py-4 bg-black overflow-hidden">
+        <div className=" bg-black overflow-hidden">
           <div className="flex justify-center ">
             <form action="" onSubmit={sendMessage}>
               <input

@@ -96,7 +96,7 @@ const Sidebar = () => {
                           />
                         ) : (
                           <img
-                            className="w-fit"
+                            className="w-fit "
                             src={userAvatar}
                             alt=""
                           />
@@ -131,17 +131,17 @@ const Sidebar = () => {
                     key={index}
                     className=" flex justify-center gap-16 hover:border-2 duration-100 cursor-pointer py-2 rounded-[4px] border-b-2"
                   >
-                    {/* <div className="grid grid-cols-2 items-center "> */}
-                      <div className="w-2/12 rounded-[50%] overflow-hidden object-cover">
+                    <div className="grid grid-cols-2 items-center ">
+                      <div className="flex justify-center  overflow-hidden object-cover">
                         {item.avatar === "" ? (
                           <img
-                            className="w-fit"
+                            className="w-4/12 rounded-[50%]"
                             src={userPro}
                             alt=""
                           />
                         ) : (
                           <img
-                            className="w-fit"
+                            className="w-4/12 rounded-[50%]"
                             src={item.avatar}
                             alt=""
                           />
@@ -149,7 +149,7 @@ const Sidebar = () => {
                       </div>
                       <div className="">
                       <h2>{item.name}</h2>
-                      {/* </div> */}
+                      </div>
                     </div>
                   </li>
                 ))}
