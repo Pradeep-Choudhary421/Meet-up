@@ -217,7 +217,7 @@ const Sidebar = () => {
             </form>
           </div>
           <div className=" flex py-2 flex-col justify-center items-center">
-            <h1 className="text-4xl">People Available</h1>
+            <h1 className="text-2xl">Users Available</h1>
             <div className=" py-6 mt-4 border-t-2 overflow-y-scroll no-scrollbar w-full h-[55vh] flex justify-center text-2xl">
               <ul className=" border-2 w-72 h-fit">
                 {filteredUserData.map((item, index) => (
