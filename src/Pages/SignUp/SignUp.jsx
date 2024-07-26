@@ -76,7 +76,7 @@ const SignUp = () => {
                 <div className="flex flex-col border-2 gap-2 p-2 justify-center justify-items-center">
                   <div ><label className=" font-bold" htmlFor="avatar">Upload Avatar </label></div>
                   <div className="flex justify-center">
-                  <input type="file" id="avatar" onChange={handleResume} name="avatar" placeholder="Upload Avatar" className=" w-[13vw]" />
+                  <input type="file" id="avatar" onChange={handleResume} name="avatar" placeholder="Upload Avatar" className=" w-[45vw] md:w-[13vw]" />
                   </div>
                 </div>
                 <div>
